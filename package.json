@@ -1,0 +1,47 @@
+{
+  "name": "htmltoolbox",
+  "version": "1.0.0",
+  "repository": "github:arashkazemi/htmltoolbox",
+  "description": "Search and Modification Engine for HTML Documents",
+  "main": "src/htmltoolbox.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "node src/test.js",
+    "jsdoc": "jsdoc -c ./jsdoc.conf.json src/htmltoolbox.js"
+  },
+  "keywords": [
+    "html",
+    "search",
+    "replace",
+    "wrap",
+    "modify",
+    "render",
+    "text",
+    "pretify",
+    "indent",
+    "compress",
+    "minify"
+  ],
+  "author": {
+    "name": "Arash Kazemi",
+    "email": "contact.arash.kazemi@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "Arash Kazemi",
+      "email": "contact.arash.kazemi@gmail.com",
+      "web": "https://github.com/arashkazemi"
+    }
+  ],
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev": "^1.1.1",
+    "jsdoc": "^4.0.2"
+  },
+  "dependencies": {
+    "dentity": "^1.2.1",
+    "html5parser": "^2.0.2"
+  }
+}

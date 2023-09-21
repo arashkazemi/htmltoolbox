@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h2>HTMLToolbox</h2>
+<h3>Search and Modification Engine for HTML Documents</h3>
+<p>HTMLToolbox is a set of tools for dealing with HTML documents. It doesn't rely on a browser
+and can work in node environment too. It can</p>
+<ul>
+<li>
+<p><strong>Convert a HTML document to its rendered text</strong>, while being as close as possible to what is
+rendered by browser. For example <code>&lt;b&gt;HTML&lt;/b&gt;Toolbox</code> will be converted to <code>HTMLToolbox</code>,
+or <code>&lt;input value='HTML'&gt;Toolbox</code> will be rendered as <code>HTML Toolbox</code>. Even less used tags like <code>&lt;q&gt;</code>
+are supported, for example <code>&lt;q&gt;HTML&lt;/q&gt;Toolbox</code> will be rendered as <code>&quot;HTML&quot;Toolbox</code>. Stylesheets
+and scripts are also automatically detected and neglected in rendered text.</p>
+</li>
+<li>
+<p><strong>Search in the text version</strong>, using both <strong>strings</strong> and <strong>regular expressions</strong>, and modify the
+matches. The search can also simply traverse the document tree. The modifications can be applied
+in batch or in a loop. In the loop you can also check for the tag names, classes and other
+attribute values, using javascript and it is not limited to for example CSS queries. Available
+modification functions included are:</p>
+</li>
+</ul>
+<ul>
+<li><strong>Remove</strong>: remove the matches.</li>
+<li><strong>Insert</strong>: insert html before or after the matches.</li>
+<li><strong>Replace</strong>: replace also supports regular expression $ notation.</li>
+<li><strong>Wrap</strong>: the matches can be wrapped in any kind of html, it doesn't need to be only a simple tag.</li>
+<li><strong>Change Tags</strong>: change the tags of the matches.</li>
+<li><strong>Set Attributes</strong>: change the html attributes of the matches</li>
+</ul>
+<ul>
+<li>
+<p><strong>Compress or Pretify</strong> and indent the HTML document and automatically fix simple errors.</p>
+</li>
+<li>
+<p>As HTMLToolbox doesn't use browser, it is <strong>secure against injections</strong> and there is no such
+danger.</p>
+</li>
+<li>
+<p>It is <strong>customizable</strong>, every aspect of it can be modified, all the predefined tags can be
+changed and new ones can be added on the fly. There also exist a bunch configuration options that
+can save the day.</p>
+</li>
+<li>
+<p>HTMLToolbox is <strong>tested</strong> and <strong>documented</strong> well and it is <strong>pretty fast</strong>.</p>
+</li>
+</ul>
+<h3>Installation</h3>
+<p>The latest source code of HTMLToolbox can be found at
+<a href="https://github.com/arashkazemi/htmltoolbox">https://github.com/arashkazemi/htmltoolbox</a></p>
+<p>To use in other node projects, install HTMLToolbox from npm public repository:</p>
+<pre><code>    npm install htmltoolbox  
+</code></pre>
+<p>and then import it using</p>
+<pre><code>    const HTMLToolbox = require(&quot;htmltoolbox&quot;);
+</code></pre>
+<p>To use in a webpage, download the source code and extract it. The minified
+script itself is available in the <code>/dist</code> directory.</p>
+<p>Alternatively, it is available via unpkg CDN and can be included in HTML files using</p>
+<pre><code>    &lt;script src=&quot;https://unpkg.com/htmltoolbox/dist/htmltoolbox.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>file:///Users/arash/Desktop/Projects/htmltoolbox/docs/HTMLToolbox.html</p>
+<h3>Usage</h3>
+<p>See the class documentation <a href="HTMLToolbox.html">HTMLToolbox</a> for more details. But here are a few examples</p>
+<h4>Replace</h4>
+<pre><code>    let doc = &quot;&lt;!DOCTYPE html&gt;this is a tesss&lt;b&gt;&lt;b&gt;&lt;/b&gt;&lt;/b&gt;sssst!&lt;/div&gt;&quot;;
+    let htb = new HTMLToolbox(doc);
+
+    for(const val of htb.search(/te(s+)t/gm)) {
+          htb.replace(&quot;&lt;div&gt;experiment&lt;/div&gt;&quot;);
+    }
+
+    console.log(htb.getHTML(null));
+</code></pre>
+<p>and the result would be:</p>
+<pre><code>    &lt;!DOCTYPE html&gt;this is a &lt;div&gt;experiment&lt;/div&gt;!
+</code></pre>
+<p>And to use the match groups:</p>
+<pre><code>    let doc = &quot;&lt;div&gt;1 and 2 and 3 and 4&lt;/div&gt;&quot;;
+    let htb = new HTMLToolbox(doc);
+
+    for(const val of htb.search(/(\d) and/gm)) {
+          const m = val.match;
+          htb.replace(`${m[1]} or`);
+    }
+
+    console.log(htb.getHTML(null));
+</code></pre>
+<p>and the result would be:</p>
+<pre><code>    &lt;!DOCTYPE html&gt;&lt;div&gt;1 or 2 or 3 or 4&lt;/div&gt;
+</code></pre>
+<h4>Wrap</h4>
+<pre><code>    let doc = &quot;&lt;div&gt;1 and 2 and 3 and 4&lt;/div&gt;&quot;;
+    let htb = new HTMLToolbox(doc);
+
+    for(const val of htb.search(/\d/gm)) {
+          htb.wrap(`&lt;span&gt;Number &lt;!/&gt;&lt;/span&gt;`);
+    }
+
+    console.log(htb.getHTML(null));
+</code></pre>
+<p>and the result would be:</p>
+<pre><code>    &lt;div&gt;&lt;span&gt;Number 1&lt;/span&gt; and &lt;span&gt;Number  2&lt;/span&gt; and &lt;span&gt;Number  3&lt;/span&gt; and &lt;span&gt;Number  4&lt;/span&gt;&lt;/div&gt;
+</code></pre>
+<hr>
+<p>Copyright (C) 2023 Arash Kazemi <a href="mailto:contact.arash.kazemi@gmail.com">contact.arash.kazemi@gmail.com</a>. All rights reserved.</p>
+<p>HTMLToolbox project is subject to the terms of BSD-2-Clause License. See the <code>LICENSE</code> file for more details.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="HTMLToolbox.html">HTMLToolbox</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
