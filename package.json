@@ -1,9 +1,10 @@
 {
   "name": "htmltoolbox",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": "github:arashkazemi/htmltoolbox",
   "description": "Search and Modification Engine for HTML Documents",
   "main": "src/htmltoolbox.js",
+  "homepage": "https://arashkazemi.github.io/htmltoolbox/",
   "scripts": {
     "build": "webpack",
     "test": "node src/test.js",
