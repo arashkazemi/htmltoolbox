@@ -55,7 +55,6 @@ Alternatively, it is available via unpkg CDN and can be included in HTML files u
 
         <script src="https://unpkg.com/htmltoolbox/dist/htmltoolbox.min.js"></script>
 
-file:///Users/arash/Desktop/Projects/htmltoolbox/docs/HTMLToolbox.html
 ### Usage
 
 See the class documentation {@link HTMLToolbox} for more details. But here are a few examples
