@@ -135,11 +135,11 @@ script itself is available in the <code>/dist</code> directory.</p>
 
 
 let htb = new HTMLToolbox(doc);
-htb.printNodes();
+//htb.printNodes();
 
 console.log(htb.getString());
 
-for(const val of htb.search(/HTMLToolbox/gm)) {
+for(const val of htb.search(/HTMLToolbox/igm)) {
 	const m = val.match;
 	htb.replace(`XXX`);
 }

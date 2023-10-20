@@ -299,7 +299,7 @@ class HTMLToolbox {
 											}
 										}
 									}
-									
+
 									if(is_hidden) continue;
 
 									for(let a in node.attributes) {
@@ -468,11 +468,8 @@ class HTMLToolbox {
 							str_last_chr = str[str.length-1];
 							node.str_index = str.length + offset;
 						}
-						if(node.parent && this.rawTags.indexOf(node.parent.name)===-1) {
+						if( !node.parent || this.rawTags.indexOf(node.parent.name)===-1) {
 							str += Dentity.decode(node.value, false, this.convertNbspToSpace);
-						}
-						else if(!node.parent) {
-							str += node.value;
 						}
 
 					}
