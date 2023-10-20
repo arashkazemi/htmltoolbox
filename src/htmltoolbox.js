@@ -290,6 +290,17 @@ class HTMLToolbox {
 							if(node.body.length===1) {
 
 								if(node.name==='input' && this.processInputValues===true) {
+									let is_hidden = false;
+									for(let a in node.attributes) {
+										if(node.attributes[a].name.value==='type') {
+											if(node.attributes[a].value.value==='hidden') {
+												is_hidden = true;
+												break;
+											}
+										}
+									}
+									
+									if(is_hidden) continue;
 
 									for(let a in node.attributes) {
 										if(node.attributes[a].name.value==='value') {
@@ -460,9 +471,10 @@ class HTMLToolbox {
 						if(node.parent && this.rawTags.indexOf(node.parent.name)===-1) {
 							str += Dentity.decode(node.value, false, this.convertNbspToSpace);
 						}
-						else {
+						else if(!node.parent) {
 							str += node.value;
 						}
+
 					}
 					str_last_chr = str[str.length-1];
 				}
