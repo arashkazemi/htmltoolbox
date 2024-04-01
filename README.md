@@ -113,7 +113,7 @@ and the result would be:
 
         <div><span>Number 1</span> and <span>Number  2</span> and <span>Number  3</span> and <span>Number  4</span></div>
 
-and in case you want to wrap all occurances, you can call `replaceAll`:
+and in case you want to wrap all occurances, you can call `wrapAll`:
 
         htb.wrapAll(/\d/gm, "<span>Number <!/></span>");
 
