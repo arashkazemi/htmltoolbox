@@ -1504,7 +1504,7 @@ class HTMLToolbox {
 	/**
 	* Returns the rendered string.
 	*/
-	getString()
+	getText()
 	{
 		this.apply();
 		return this.#flat_str.slice(1);

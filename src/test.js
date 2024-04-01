@@ -14,7 +14,7 @@ let doc = "<!DOCTYPE html><div>T&nbsp;h<q>is</q> is tete<span>ssss</span>sst.</s
 let htb = new HTMLToolbox(doc);
 //htb.printNodes();
 
-console.log(">>>", htb.getString());
+console.log(">>>", htb.getText());
 
 for(const val of htb.search(/HTMLToolbox/igm)) {
 	const m = val.match;
@@ -22,7 +22,7 @@ for(const val of htb.search(/HTMLToolbox/igm)) {
 }
 
 console.log(">>>", htb.getHTML(null));
-console.log(">>>", htb.getString());
+console.log(">>>", htb.getText());
 
 
 for(const val of htb.search(/(\d)/gm)) {
@@ -30,18 +30,18 @@ for(const val of htb.search(/(\d)/gm)) {
 }
 console.log(htb.getHTML(null));
 //htb.printNodes();
-console.log("***", htb.getString());
+console.log("***", htb.getText());
 
 // htb.printNodes()
 // // console.log("==================")
-// // console.log(htb.getString());
+// // console.log(htb.getText());
 // // console.log("----------------")
 // console.log(htb.getHTML());
 
 htb.replaceAll( /te(s+)t/gm, 'XXX' );
 htb.replaceAll( 'tessssssst', 'XXX' );
 console.log("==================")
-console.log(htb.getString());
+console.log(htb.getText());
 console.log("----------------")
 console.log(htb.getHTML('  '));
 
@@ -50,7 +50,7 @@ console.log(htb.getHTML('  '));
 
 htb.replaceAll( 'z', 'Y' );
 console.log("==================")
-console.log(htb.getString());
+console.log(htb.getText());
 console.log("----------------")
 console.log(htb.getHTML());
 
@@ -73,9 +73,9 @@ console.log(htb.getHTML());
 // // htb.replaceAll( 'YY', '' );
 // //htb.replaceAll( /YY/gm, '' );
 // // console.log("==================")
-// // console.log(htb.getString());
+// // console.log(htb.getText());
 // // console.log("----------------")
 
 
 // console.log(htb.getHTML());
-// console.log("***", htb.getString());
+// console.log("***", htb.getText());
