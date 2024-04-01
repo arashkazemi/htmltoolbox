@@ -1635,8 +1635,8 @@ beginning of the match.</p>
 <p><code>end_offset</code>: is the index of the last character of the match in the end node.</p>
 <h3>Nodes</h3>
 <p>Each node has properties like attributes, name, rawName and type. The type may
-be <code>Tag</code>, <code>Text</code> and <code>Sep</code>. Text nodes are the leaves of the HTML tree. The Sep
-nodes are rendered separators. They are not modifiable. If you need a different
+be <code>Tag</code>, <code>Text</code> or <code>Sep</code>. Text nodes are the leaves of the HTML tree. The Sep
+nodes are the rendered separators. They are not modifiable. If you need a different
 separator for a specific tag, change the <code>separators</code> dictionary of the HTMLToolbox
 instance you are working with.</p>
 <p>Each node also has a <code>body</code> that contains the separators and its children. It

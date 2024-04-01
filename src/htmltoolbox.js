@@ -1182,8 +1182,8 @@ class HTMLToolbox {
 	* ### Nodes
 	* 
 	* Each node has properties like attributes, name, rawName and type. The type may
-	* be `Tag`, `Text` and `Sep`. Text nodes are the leaves of the HTML tree. The Sep
-	* nodes are rendered separators. They are not modifiable. If you need a different
+	* be `Tag`, `Text` or `Sep`. Text nodes are the leaves of the HTML tree. The Sep
+	* nodes are the rendered separators. They are not modifiable. If you need a different
 	* separator for a specific tag, change the `separators` dictionary of the HTMLToolbox
 	* instance you are working with.
 	* 
