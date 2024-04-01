@@ -57,6 +57,7 @@ class HTMLToolbox {
 		'sup'		: '',
 		'script'	: '',
 		'style'		: '',
+		'code'		: '',
 
 		'q'			: '"',
 
@@ -72,7 +73,6 @@ class HTMLToolbox {
 		'td'		: '\t',
 
 		/* for other tags, default separator ' ' will be applied.
-		'code'		: ' ',
 		'img'		: ' ',
 		'map'		: ' ',
 		'button'	: ' ',
@@ -180,7 +180,6 @@ class HTMLToolbox {
 		let i = 0;
 
 		while(i<nodes.length) {
-
 			const node = nodes[i];
 
 			if(node.body) {
@@ -330,6 +329,8 @@ class HTMLToolbox {
 					let segs = [];
 
 					for(let v of vs) {
+						v = v.replace(/(^[\n]+)|([\n]+$)/gm, '');
+
 						let nd = {
 							value: v,
 							type: node.type,
@@ -562,7 +563,7 @@ class HTMLToolbox {
 
 			const node = {
 				type: "Text",
-				value: nds.str,
+				value: nds.str.replace(/(^[\n]+)|([\n]+$)/gm, ''),
 				parent: anchor.parent,
 				mod_offset: 0
 			};
@@ -734,9 +735,9 @@ class HTMLToolbox {
 
 				let env = this.#flatten(ch.envelope, body[0].prev, body[body.length-1].next, true);
 
-				if(body.length===p.length-2) {
-					body = [body[0].parent];
-				}
+				// if(body.length===p.length-2) {
+				// 	body = [body[0].parent];
+				// }
 
 				env.wrap_site_c.splice( env.wrap_site_i, 1, ...body );
 
@@ -1069,11 +1070,6 @@ class HTMLToolbox {
 
 	#getHTML(indent='\t', col='', nodes=this.#flat_nodes)
 	{
-		// todo: there should be an option for keeping the initial html string
-		// the same as far as possible.
-
-		this.apply();
-
 		let hs = "";
 		let prev = nodes[0].prev;
 		for(let n of nodes) {
@@ -1283,7 +1279,9 @@ class HTMLToolbox {
 		}
 
 		if(this.#change_list.length>0) {
-			let flat = this.#flatten(this.#flat_nodes);
+			let flat = this.#flatten( this.#getHTML("") );
+
+			this.#flat_nodes = flat.nodes;
 			this.#flat_str = flat.str;
 			this.#change_list = [];
 		}
