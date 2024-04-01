@@ -1515,7 +1515,7 @@ class HTMLToolbox {
 	*/
 	getString()
 	{
-		console.warning("HTMLToolbox: getString() is deprecated and will be removed. Use getText() instead.");
+		console.warn("HTMLToolbox: getString() is deprecated and will be removed. Use getText() instead.");
 		return this.getText();
 	}
 
