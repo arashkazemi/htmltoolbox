@@ -103,7 +103,9 @@ script itself is available in the <code>/dist</code> directory.</p>
 <pre><code>    &lt;script src=&quot;https://unpkg.com/htmltoolbox/dist/htmltoolbox.min.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 <h3>Usage</h3>
-<p>See the class documentation <a href="HTMLToolbox.html">HTMLToolbox</a> for more details. But here are a few examples</p>
+<p>For more details see the <a href="https://github.com/arashkazemi/htmltoolbox">documentation</a> and
+specifically the <a href="https://arashkazemi.github.io/htmltoolbox/HTMLToolbox.html">class documentation</a>.</p>
+<p>Here are a few examples</p>
 <h4>Replace</h4>
 <pre><code>    let doc = &quot;&lt;!DOCTYPE html&gt;this is a tesss&lt;b&gt;&lt;b&gt;&lt;/b&gt;&lt;/b&gt;sssst!&lt;/div&gt;&quot;;
     let htb = new HTMLToolbox(doc);
@@ -131,6 +133,9 @@ script itself is available in the <code>/dist</code> directory.</p>
 <p>and the result would be:</p>
 <pre><code>    &lt;!DOCTYPE html&gt;&lt;div&gt;1 or 2 or 3 or 4&lt;/div&gt;
 </code></pre>
+<p>in case you want to replace all occurances, you can call <code>replaceAll</code>:</p>
+<pre><code>    htb.replaceAll(/te(s+)t/gm, &quot;&lt;div&gt;experiment&lt;/div&gt;&quot;);
+</code></pre>
 <h4>Wrap</h4>
 <pre><code>    let doc = &quot;&lt;div&gt;1 and 2 and 3 and 4&lt;/div&gt;&quot;;
     let htb = new HTMLToolbox(doc);
@@ -144,8 +149,11 @@ script itself is available in the <code>/dist</code> directory.</p>
 <p>and the result would be:</p>
 <pre><code>    &lt;div&gt;&lt;span&gt;Number 1&lt;/span&gt; and &lt;span&gt;Number  2&lt;/span&gt; and &lt;span&gt;Number  3&lt;/span&gt; and &lt;span&gt;Number  4&lt;/span&gt;&lt;/div&gt;
 </code></pre>
+<p>and in case you want to wrap all occurances, you can call <code>replaceAll</code>:</p>
+<pre><code>    htb.wrapAll(/\d/gm, &quot;&lt;span&gt;Number &lt;!/&gt;&lt;/span&gt;&quot;);
+</code></pre>
 <hr>
-<p>Copyright (C) 2023 Arash Kazemi <a href="mailto:contact.arash.kazemi@gmail.com">contact.arash.kazemi@gmail.com</a>. All rights reserved.</p>
+<p>Copyright (C) 2023-2024 Arash Kazemi <a href="mailto:contact.arash.kazemi@gmail.com">contact.arash.kazemi@gmail.com</a>. All rights reserved.</p>
 <p>HTMLToolbox project is subject to the terms of BSD-2-Clause License. See the <code>LICENSE</code> file for more details.</p></article>
     </section>
 

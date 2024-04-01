@@ -34,7 +34,6 @@ can save the day.
 
 - HTMLToolbox is **tested** and **documented** well and it is **pretty fast**. 
 
-
 ### Installation
 
 The latest source code of HTMLToolbox can be found at
@@ -57,7 +56,10 @@ Alternatively, it is available via unpkg CDN and can be included in HTML files u
 
 ### Usage
 
-See the class documentation {@link HTMLToolbox} for more details. But here are a few examples
+For more details see the [documentation](https://github.com/arashkazemi/htmltoolbox) and
+specifically the [class documentation](https://arashkazemi.github.io/htmltoolbox/HTMLToolbox.html). 
+
+Here are a few examples
 
 #### Replace
         
@@ -73,7 +75,7 @@ See the class documentation {@link HTMLToolbox} for more details. But here are a
 and the result would be:
 
         <!DOCTYPE html>this is a <div>experiment</div>!
-        
+
 And to use the match groups:
 
         let doc = "<div>1 and 2 and 3 and 4</div>";
@@ -91,6 +93,11 @@ and the result would be:
         <!DOCTYPE html><div>1 or 2 or 3 or 4</div>
 
 
+in case you want to replace all occurances, you can call `replaceAll`:
+
+        htb.replaceAll(/te(s+)t/gm, "<div>experiment</div>");
+
+
 #### Wrap
 
         let doc = "<div>1 and 2 and 3 and 4</div>";
@@ -106,9 +113,13 @@ and the result would be:
 
         <div><span>Number 1</span> and <span>Number  2</span> and <span>Number  3</span> and <span>Number  4</span></div>
 
+and in case you want to wrap all occurances, you can call `replaceAll`:
+
+        htb.wrapAll(/\d/gm, "<span>Number <!/></span>");
+
 
 ---
 
-Copyright (C) 2023 Arash Kazemi <contact.arash.kazemi@gmail.com>. All rights reserved.
+Copyright (C) 2023-2024 Arash Kazemi <contact.arash.kazemi@gmail.com>. All rights reserved.
 
 HTMLToolbox project is subject to the terms of BSD-2-Clause License. See the `LICENSE` file for more details.

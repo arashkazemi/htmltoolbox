@@ -28,7 +28,7 @@
         <article>
             <pre class="prettyprint source linenums"><code>/*
 	HTMLToolbox
-	Copyright (C) 2023 Arash Kazemi &lt;contact.arash.kazemi@gmail.com>
+	Copyright (C) 2023-2024 Arash Kazemi &lt;contact.arash.kazemi@gmail.com>
 	All rights reserved.
 
 	Distributed under BSD-2-Clause License:
@@ -85,6 +85,7 @@ class HTMLToolbox {
 		'sup'		: '',
 		'script'	: '',
 		'style'		: '',
+		'code'		: '',
 
 		'q'			: '"',
 
@@ -100,7 +101,6 @@ class HTMLToolbox {
 		'td'		: '\t',
 
 		/* for other tags, default separator ' ' will be applied.
-		'code'		: ' ',
 		'img'		: ' ',
 		'map'		: ' ',
 		'button'	: ' ',
@@ -208,7 +208,6 @@ class HTMLToolbox {
 		let i = 0;
 
 		while(i&lt;nodes.length) {
-
 			const node = nodes[i];
 
 			if(node.body) {
@@ -327,7 +326,7 @@ class HTMLToolbox {
 											}
 										}
 									}
-									
+
 									if(is_hidden) continue;
 
 									for(let a in node.attributes) {
@@ -358,6 +357,8 @@ class HTMLToolbox {
 					let segs = [];
 
 					for(let v of vs) {
+						v = v.replace(/(^[\n]+)|([\n]+$)/gm, '');
+
 						let nd = {
 							value: v,
 							type: node.type,
@@ -496,11 +497,8 @@ class HTMLToolbox {
 							str_last_chr = str[str.length-1];
 							node.str_index = str.length + offset;
 						}
-						if(node.parent &amp;&amp; this.rawTags.indexOf(node.parent.name)===-1) {
+						if( !node.parent || this.rawTags.indexOf(node.parent.name)===-1) {
 							str += Dentity.decode(node.value, false, this.convertNbspToSpace);
-						}
-						else if(!node.parent) {
-							str += node.value;
 						}
 
 					}
@@ -593,7 +591,7 @@ class HTMLToolbox {
 
 			const node = {
 				type: "Text",
-				value: nds.str,
+				value: nds.str.replace(/(^[\n]+)|([\n]+$)/gm, ''),
 				parent: anchor.parent,
 				mod_offset: 0
 			};
@@ -765,9 +763,9 @@ class HTMLToolbox {
 
 				let env = this.#flatten(ch.envelope, body[0].prev, body[body.length-1].next, true);
 
-				if(body.length===p.length-2) {
-					body = [body[0].parent];
-				}
+				// if(body.length===p.length-2) {
+				// 	body = [body[0].parent];
+				// }
 
 				env.wrap_site_c.splice( env.wrap_site_i, 1, ...body );
 
@@ -1100,11 +1098,6 @@ class HTMLToolbox {
 
 	#getHTML(indent='\t', col='', nodes=this.#flat_nodes)
 	{
-		// todo: there should be an option for keeping the initial html string
-		// the same as far as possible.
-
-		this.apply();
-
 		let hs = "";
 		let prev = nodes[0].prev;
 		for(let n of nodes) {
@@ -1314,7 +1307,9 @@ class HTMLToolbox {
 		}
 
 		if(this.#change_list.length>0) {
-			let flat = this.#flatten(this.#flat_nodes);
+			let flat = this.#flatten( this.#getHTML("") );
+
+			this.#flat_nodes = flat.nodes;
 			this.#flat_str = flat.str;
 			this.#change_list = [];
 		}
