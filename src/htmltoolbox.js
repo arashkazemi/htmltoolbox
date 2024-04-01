@@ -1322,7 +1322,7 @@ class HTMLToolbox {
 	*
 	* and the result would be:
 	*
-	* 	<!DOCTYPE html>this is !
+	* 	<!DOCTYPE html>this is!
 	*/
 	remove()
 	{
