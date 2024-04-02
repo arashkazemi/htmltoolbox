@@ -52,7 +52,7 @@ and can work in node environment too. It can</p>
 <p><strong>Convert a HTML document to its rendered text</strong>, while being as close as possible to what is
 rendered by browser. For example <code>&lt;b&gt;HTML&lt;/b&gt;Toolbox</code> will be converted to <code>HTMLToolbox</code>,
 or <code>&lt;input value='HTML'&gt;Toolbox</code> will be rendered as <code>HTML Toolbox</code>. Even less used tags like <code>&lt;q&gt;</code>
-are supported, for example <code>&lt;q&gt;HTML&lt;/q&gt;Toolbox</code> will be rendered as <code>&quot;HTML&quot;Toolbox</code>. Stylesheets
+are supported, for example <code>&lt;q&gt;HTML&lt;/q&gt;Toolbox</code> will be rendered as <code>&quot;HTML&quot;Toolbox</code>. Style-sheets
 and scripts are also automatically detected and neglected in rendered text.</p>
 </li>
 <li>
@@ -65,11 +65,11 @@ modification functions included are:</p>
 </ul>
 <ul>
 <li><strong>Remove</strong>: remove the matches.</li>
-<li><strong>Insert</strong>: insert html before or after the matches.</li>
+<li><strong>Insert</strong>: insert HTML before or after the matches.</li>
 <li><strong>Replace</strong>: replace also supports regular expression $ notation.</li>
-<li><strong>Wrap</strong>: the matches can be wrapped in any kind of html, it doesn't need to be only a simple tag.</li>
+<li><strong>Wrap</strong>: the matches can be wrapped in any kind of HTML, it doesn't need to be only a simple tag.</li>
 <li><strong>Change Tags</strong>: change the tags of the matches.</li>
-<li><strong>Set Attributes</strong>: change the html attributes of the matches</li>
+<li><strong>Set Attributes</strong>: change the HTML attributes of the matches</li>
 </ul>
 <ul>
 <li>
@@ -103,23 +103,44 @@ script itself is available in the <code>/dist</code> directory.</p>
 <pre><code>    &lt;script src=&quot;https://unpkg.com/htmltoolbox/dist/htmltoolbox.min.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 <h3>Usage</h3>
-<p>For more details see the <a href="https://github.com/arashkazemi/htmltoolbox">documentation</a> and
-specifically the <a href="https://arashkazemi.github.io/htmltoolbox/HTMLToolbox.html">class documentation</a>.</p>
-<p>Here are a few examples</p>
-<h4>Replace</h4>
+<p>See the <a href="https://github.com/arashkazemi/htmltoolbox">documentation homepage</a> and also
+the <a href="https://arashkazemi.github.io/htmltoolbox/HTMLToolbox.html">class documentation</a> for all
+the available methods and many more examples.</p>
+<p>Here are a few explained examples:</p>
+<h4>Replace Example</h4>
+<p>For replacing all occurrences of an regex or string in an HTML document, first create
+and instance of HTMLToolbox for the document string:</p>
 <pre><code>    let doc = &quot;&lt;!DOCTYPE html&gt;this is a tesss&lt;b&gt;&lt;b&gt;&lt;/b&gt;&lt;/b&gt;sssst!&lt;/div&gt;&quot;;
     let htb = new HTMLToolbox(doc);
-
-    for(const val of htb.search(/te(s+)t/gm)) {
-          htb.replace(&quot;&lt;div&gt;experiment&lt;/div&gt;&quot;);
+</code></pre>
+<p>and then</p>
+<pre><code>    htb.replaceAll(/te(s+)t/gm, &quot;&lt;div&gt;document&lt;/div&gt;&quot;);
+</code></pre>
+<p>and to get the result:</p>
+<pre><code>    console.log(htb.getHTML(null));
+</code></pre>
+<p>which would be:</p>
+<pre><code>    &lt;!DOCTYPE html&gt;this is a &lt;div&gt;document&lt;/div&gt;!
+</code></pre>
+<p>In case you want a fine control for each occurrence, you can iterate the results:</p>
+<pre><code>    for(const val of htb.search(/te(s+)t/gm)) {
+          htb.replace(&quot;&lt;div&gt;document&lt;/div&gt;&quot;);
     }
-
-    console.log(htb.getHTML(null));
 </code></pre>
-<p>and the result would be:</p>
-<pre><code>    &lt;!DOCTYPE html&gt;this is a &lt;div&gt;experiment&lt;/div&gt;!
+<p>the <code>val</code> object contains both the <code>match</code>, and its start and end positions
+in the input string. It also contains an start and end node in the parsed HTML tree, so that you
+can traverse on and replace accordingly.</p>
+<p>To get the output use <code>getHTML</code>, which receives the indentation as argument which is <code>\t</code> by default,
+and <code>null</code> means no indentation.</p>
+<pre><code>    htb.getHTML(null);
 </code></pre>
-<p>And to use the match groups:</p>
+<p>To get the flattened text use:</p>
+<pre><code>    htb.getText();
+</code></pre>
+<p>which in this case would be:</p>
+<pre><code>    this is a document.
+</code></pre>
+<p>To use regex match groups:</p>
 <pre><code>    let doc = &quot;&lt;div&gt;1 and 2 and 3 and 4&lt;/div&gt;&quot;;
     let htb = new HTMLToolbox(doc);
 
@@ -133,14 +154,21 @@ specifically the <a href="https://arashkazemi.github.io/htmltoolbox/HTMLToolbox.
 <p>and the result would be:</p>
 <pre><code>    &lt;!DOCTYPE html&gt;&lt;div&gt;1 or 2 or 3 or 4&lt;/div&gt;
 </code></pre>
-<p>in case you want to replace all occurances, you can call <code>replaceAll</code>:</p>
-<pre><code>    htb.replaceAll(/te(s+)t/gm, &quot;&lt;div&gt;experiment&lt;/div&gt;&quot;);
-</code></pre>
-<h4>Wrap</h4>
+<p>in case you want to replace all occurrences, you can call <code>replaceAll</code>:</p>
+<p>Notice that the creation of the HTMLToolbox instance for a document is to make it possible to
+apply consecutive changes and then get the results.</p>
+<h4>Wrap Example</h4>
+<p>The wrap function receives the wrap envelope as a string and recognizes <code>&lt;!/&gt;</code> as a placeholder
+for the nodes that are being wrapped. The wrap envelope string is parsed as an HTML fragment before
+applying and so errors in it won't break the overall document structure, but may lead to unexpected
+results.</p>
 <pre><code>    let doc = &quot;&lt;div&gt;1 and 2 and 3 and 4&lt;/div&gt;&quot;;
     let htb = new HTMLToolbox(doc);
 
-    for(const val of htb.search(/\d/gm)) {
+    htb.wrapAll(/\d/gm, &quot;&lt;span&gt;Number &lt;!/&gt;&lt;/span&gt;&quot;);
+</code></pre>
+<p>or for fine control on each occurrences:</p>
+<pre><code>    for(const val of htb.search(/\d/gm)) {
           htb.wrap(`&lt;span&gt;Number &lt;!/&gt;&lt;/span&gt;`);
     }
 
@@ -149,9 +177,8 @@ specifically the <a href="https://arashkazemi.github.io/htmltoolbox/HTMLToolbox.
 <p>and the result would be:</p>
 <pre><code>    &lt;div&gt;&lt;span&gt;Number 1&lt;/span&gt; and &lt;span&gt;Number  2&lt;/span&gt; and &lt;span&gt;Number  3&lt;/span&gt; and &lt;span&gt;Number  4&lt;/span&gt;&lt;/div&gt;
 </code></pre>
-<p>and in case you want to wrap all occurances, you can call <code>wrapAll</code>:</p>
-<pre><code>    htb.wrapAll(/\d/gm, &quot;&lt;span&gt;Number &lt;!/&gt;&lt;/span&gt;&quot;);
-</code></pre>
+<p>See the <a href="https://arashkazemi.github.io/htmltoolbox/HTMLToolbox.html">class documentation</a> for all
+other methods, features, and also the details of the data structures.</p>
 <hr>
 <p>Copyright (C) 2023-2024 Arash Kazemi <a href="mailto:contact.arash.kazemi@gmail.com">contact.arash.kazemi@gmail.com</a>. All rights reserved.</p>
 <p>HTMLToolbox project is subject to the terms of BSD-2-Clause License. See the <code>LICENSE</code> file for more details.</p></article>
