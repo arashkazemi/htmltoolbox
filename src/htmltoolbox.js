@@ -1204,6 +1204,7 @@ class HTMLToolbox {
 		this.apply();
 
 		if(data===undefined) {
+
 			if(query instanceof RegExp) {
 				let match;
 
@@ -1219,6 +1220,8 @@ class HTMLToolbox {
 
 
 					yield this.#current_match;
+
+					if(!query.global) break;
 				}
 
 			}

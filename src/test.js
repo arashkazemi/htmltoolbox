@@ -1,7 +1,8 @@
 const HTMLToolbox = require("../src/htmltoolbox");
 
-let doc = "<!DOCTYPE html><div>T&nbsp;h<q>is</q> is tete<span>ssss</span>sst.</span><span><span><span></span></span></span>s&#116;.fsdfdsfsfds df dsfs<b class='xxx yyy'>sfdsgf</b><br>fsdgfgte</div><input value=\"tessst\">st ttt";
-//let doc = "<div>1 and 2 and 3 and 4</div>";
+//let doc = "<!DOCTYPE html><div>T&nbsp;h<q>is</q> is tete<span>ssss</span>sst.</span><span><span><span></span></span></span>s&#116;.fsdfdsfsfds df dsfs<b class='xxx yyy'>sfdsgf</b><br>fsdgfgte</div><input value=\"tessst\">st ttt";
+
+let doc = "<div>1 and 2 and 3 and 4</div>";
 // let doc = `
 // <p><strong>Convert a HTML document to its rendered text</strong>, while being as close as possible to what is
 // rendered by browser. For example <code>&lt;b&gt;HTML&lt;/b&gt;Toolbox</code> will be converted to <code>HTMLToolbox</code>,
@@ -16,10 +17,13 @@ let htb = new HTMLToolbox(doc);
 
 console.log(">>>", htb.getText());
 
-for(const val of htb.search(/HTMLToolbox/igm)) {
-	const m = val.match;
-	htb.wrap(`<span><!/></span>`);
-}
+// for(const val of htb.search(/HTMLToolbox/im)) {
+// 	const m = val.match;
+// 	htb.wrap(`<span><!/></span>`);
+// }
+
+htb.replaceAll( /(\d)/, 'XXX' );
+
 
 console.log(">>>", htb.getHTML(null));
 console.log(">>>", htb.getText());

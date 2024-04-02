@@ -1,6 +1,6 @@
 {
   "name": "htmltoolbox",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "repository": "github:arashkazemi/htmltoolbox",
   "description": "Search and Modification Engine for HTML Documents",
   "main": "src/htmltoolbox.js",
